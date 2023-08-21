@@ -1,0 +1,90 @@
+/* Global Styles */
+body {
+  font-family: "Old English Text MT", serif;
+  color: #1a1a1a;
+  background-color: #f6f6f6;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header Styles */
+header {
+  background-color: #1a1a1a;
+  padding: 20px 0;
+  text-align: center;
+}
+
+header h1 {
+  color: #f6f6f6;
+  font-size: 36px;
+  margin: 0;
+}
+
+header p {
+  color: #f6f6f6;
+  font-size: 20px;
+  margin: 0;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav li {
+  display: inline;
+  margin-right: 20px;
+}
+
+nav a {
+  color: #f6f6f6;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+/* Main Content Styles */
+main {
+  padding: 20px;
+}
+
+main h2 {
+  color: #1a1a1a;
+  font-size: 28px;
+}
+
+main p {
+  font-size: 18px;
+}
+
+main .project {
+  margin-bottom: 40px;
+}
+
+main .project img {
+  max-width: 100%;
+}
+
+/* Footer Styles */
+footer {
+  background-color: #1a1a1a;
+  color: #f6f6f6;
+  padding: 20px 0;
+  text-align: center;
+}
+
+footer ul {
+  list-style: none;
+  padding: 0;
+}
+
+footer li {
+  margin-bottom: 10px;
+}
+
+.social-links img {
+  width: 30px;
+  margin: 0 5px;
+}
+
+
