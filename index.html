@@ -3,122 +3,700 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
+  <title>Gunjan Gunecha</title>
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Argent+CF:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
   
   <style>
+    :root {
+      --primary-color: #6366f1;
+      --secondary-color: #8b5cf6;
+      --accent-color: #ec4899;
+      --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+    
+    /* Light theme (default) */
     body {
-      background-color: #fff;
-      color: #333;
-      font-family: Arial, sans-serif;
+      --light-bg: #f8fafc;
+      --lighter-bg: #ffffff;
+      --text-primary: #1e293b;
+      --text-secondary: #475569;
+      --gradient-bg: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 50%, #fdfcfb 100%);
+      --hero-bg: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 50%, #fdfcfb 100%);
+      --footer-bg: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+      --orb-opacity: 0.6;
+      --grid-opacity: 0.08;
+      --card-bg: rgba(99, 102, 241, 0.05);
+      --card-border: rgba(99, 102, 241, 0.15);
+      --card-shadow: rgba(99, 102, 241, 0.08);
+      --social-bg: rgba(99, 102, 241, 0.08);
+      --social-border: rgba(99, 102, 241, 0.25);
+      --social-color: #6366f1;
+      --scrollbar-track: #f8fafc;
+      --name-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    /* Dark theme */
+    body.dark-theme {
+      --light-bg: #0f172a;
+      --lighter-bg: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --gradient-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      --hero-bg: #020617;
+      --footer-bg: #020617;
+      --orb-opacity: 0.4;
+      --grid-opacity: 0.03;
+      --card-bg: rgba(99, 102, 241, 0.05);
+      --card-border: rgba(99, 102, 241, 0.2);
+      --card-shadow: rgba(99, 102, 241, 0.1);
+      --social-bg: rgba(99, 102, 241, 0.1);
+      --social-border: rgba(99, 102, 241, 0.3);
+      --social-color: #f1f5f9;
+      --scrollbar-track: #020617;
+      --name-gradient: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+    }
+    
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
     
-    .background-image {
-      background-image: url('');
-      background-size: cover;
-    }
-    
-    .footer {
-      color: #333;
-      padding: 20px 0;
-      text-align: center;
-      font-size: 24px;
+    /* Theme Toggle Button */
+    .theme-toggle {
       position: fixed;
-      bottom: 0;
+      top: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--lighter-bg);
+      border: 2px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px var(--card-shadow);
+    }
+    
+    .theme-toggle:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+    
+    .theme-toggle i {
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      transition: transform 0.3s ease;
+    }
+    
+    .theme-toggle:active {
+      transform: scale(0.95);
+    }
+    
+    body.dark-theme .theme-toggle .fa-moon {
+      display: none;
+    }
+    
+    body:not(.dark-theme) .theme-toggle .fa-sun {
+      display: none;
+    }
+    
+    body {
+      background: var(--gradient-bg);
+      color: var(--text-primary);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    
+    /* Animated gradient background */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--hero-bg);
+      transition: background 0.3s ease;
+    }
+    
+    .animated-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: var(--orb-opacity);
+      transition: opacity 0.3s ease;
     }
-    .footer a {
-      color: #333;
-      text-decoration: none;
-      margin: 0 20px;
+    
+    .gradient-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: float 20s infinite ease-in-out;
     }
-    .footer a:hover {
-      text-decoration: underline;
+    
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: var(--gradient-1);
+      top: -10%;
+      left: -10%;
+      animation-delay: 0s;
     }
-    .container {
+    
+    .orb-2 {
+      width: 400px;
+      height: 400px;
+      background: var(--gradient-2);
+      bottom: -10%;
+      right: -10%;
+      animation-delay: 7s;
+    }
+    
+    .orb-3 {
+      width: 350px;
+      height: 350px;
+      background: var(--gradient-3);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: 14s;
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+      33% {
+        transform: translate(50px, -50px) scale(1.1);
+      }
+      66% {
+        transform: translate(-30px, 30px) scale(0.9);
+      }
+    }
+    
+    /* Grid pattern overlay */
+    .grid-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(99, 102, 241, var(--grid-opacity)) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 102, 241, var(--grid-opacity)) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: 1;
+      transition: background-image 0.3s ease;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 10;
       text-align: center;
+      padding: 2rem;
+      max-width: 1200px;
+    }
+    
+    .profile-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      margin: 0 auto 2rem;
+      border: 4px solid var(--primary-color);
+      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+      animation: fadeInScale 1s ease-out;
+      object-fit: cover;
+      background: var(--gradient-1);
+    }
+    
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    .profile-name {
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 700;
+      background: var(--name-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 1s ease-out;
+      letter-spacing: -0.02em;
+    }
+    
+    .tagline {
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      animation: fadeInUp 1s ease-out 0.2s backwards;
+      font-weight: 300;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 1s ease-out 0.4s backwards;
+    }
+    
+    .btn-primary, .btn-secondary {
+      padding: 1rem 2.5rem;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 2px solid transparent;
+    }
+    
+    .btn-primary {
+      background: var(--gradient-1);
+      color: white;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 2px solid var(--primary-color);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(99, 102, 241, 0.1);
+      transform: translateY(-3px);
+    }
+    
+    .scroll-indicator {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      animation: bounce 2s infinite;
+    }
+    
+    .scroll-indicator i {
+      font-size: 2rem;
+      color: var(--text-secondary);
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      40% {
+        transform: translateX(-50%) translateY(-20px);
+      }
+      60% {
+        transform: translateX(-50%) translateY(-10px);
+      }
+    }
+    
+    /* About Section */
+    .about-section {
+      position: relative;
+      padding: 8rem 2rem;
+      background: var(--lighter-bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      transition: background 0.3s ease;
+    }
+    
+    .about-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    
+    .about-text h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 2rem;
+      background: var(--name-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+    
+    .about-text p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    
+    .about-text a {
+      color: var(--primary-color);
+      text-decoration: none;
+      border-bottom: 2px solid var(--primary-color);
+      transition: all 0.3s ease;
+    }
+    
+    .about-text a:hover {
+      color: var(--secondary-color);
+      border-bottom-color: var(--secondary-color);
+    }
+    
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    
+    .skill-card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 15px;
+      border: 2px solid var(--card-border);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px var(--card-shadow);
+    }
+    
+    .skill-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary-color);
+      background: rgba(99, 102, 241, 0.1);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
+    }
+    
+    .skill-card i {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+    
+    .skill-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+    
+    .skill-card p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    
+    /* Footer */
+    .footer {
+      background: var(--footer-bg);
+      padding: 3rem 2rem;
+      border-top: 2px solid var(--card-border);
+      transition: background 0.3s ease;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      gap: 2rem;
     }
-    .profile-name {
-      font-size: 48px;
-      font-weight: bold;
-      color: #ffffff;
-      margin-bottom: 20px;
-      font-family: 'Argent CF', sans-serif;
-    }
-    .about-me-link {
-      color: #ffffff;
-      font-size: 24px;
-      text-decoration: none;
-      margin-top: 50px;
-    }
-    .about-me-link:hover {
-      text-decoration: underline;
-    }
-    .about-me-content {
+    
+    .social-links {
       display: flex;
-      align-items: flex-start;
-      padding: 100px;
-      font-family: monospace; 
-    }
-    .about-me h2 {
-      font-size: 36px;
-      font-weight: bold;
-      color: #ffffff;
-      margin-bottom: 20px;
-      font-family: 'Arial', sans-serif;
-    }
-    .about-me p {
-      font-size: 18px;
-      color: #ffffff;
-      font-family: monospace; 
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     
-    .footer-icons {
-      opacity: 0.5;
-      transition: opacity 0.3s;
+    .social-link {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--social-bg);
+      border: 2px solid var(--social-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--social-color);
+      font-size: 1.3rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
     }
     
-    .footer-icons:hover {
-      opacity: 1;
+    .social-link:hover {
+      background: var(--gradient-1);
+      border-color: transparent;
+      color: white;
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+    }
+    
+    .copyright {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .fade-in {
+      animation: fadeInUp 1s ease-out;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .about-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+      
+      .orb-1, .orb-2, .orb-3 {
+        width: 300px;
+        height: 300px;
+      }
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: var(--scrollbar-track);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary-color);
+      border-radius: 5px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary-color);
     }
   </style>
 </head>
 <body>
 
-<div class="container background-image" id="home">
-  <header class="text-center mt-5">
+<!-- Theme Toggle Button -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+  <i class="fas fa-moon"></i>
+  <i class="fas fa-sun"></i>
+</button>
+
+<!-- Hero Section -->
+<section class="hero-section" id="home">
+  <div class="animated-bg">
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+  </div>
+  <div class="grid-overlay"></div>
+  
+  <div class="hero-content">
+    <!-- Profile Image - Replace 'your-image.jpg' with your actual image path -->
+    <img src="https://via.placeholder.com/200" alt="Gunjan Gunecha" class="profile-image" id="profileImage">
     <h1 class="profile-name">GUNJAN GUNECHA</h1>
-  </header>
-</div>
+    <p class="tagline">Python Developer • Problem Solver • Innovation Enthusiast</p>
+    <div class="cta-buttons">
+      <a href="#about" class="btn-primary">
+        <span>Explore My Work</span>
+        <i class="fas fa-arrow-right"></i>
+      </a>
+      <a href="https://drive.google.com/file/d/1xwaVXqLdGgOv_hpcu3yQ5pHb3hyIli9I/view?usp=sharing" target="_blank" class="btn-secondary">
+        <i class="fas fa-file-alt"></i>
+        <span>View Resume</span>
+      </a>
+    </div>
+  </div>
+  
+  <div class="scroll-indicator">
+    <i class="fas fa-chevron-down"></i>
+  </div>
+</section>
 
-<div class="container about-me-content" id="about-me">
-  <section class="text-start">
-    <h2>A little bit about me.</h2>
-    <p>Welcome to my website! I specialize in merging intuitive problem-solving with a strong grasp of Python. My passion lies in initiating innovative projects and delivering impactful contributions to dynamic teams. I am acknowledged for my knack in approaching intricate challenges with intuition and my mastery of Python programming. I am dedicated to translating imaginative concepts into concrete outcomes while playing a pivotal role in active teams. Feel free to explore and get better acquainted with me. For a more comprehensive insight into my experiences and skills, feel free to delve into my <a href="https://drive.google.com/file/d/1xwaVXqLdGgOv_hpcu3yQ5pHb3hyIli9I/view?usp=sharing">resume</a>!</p>
-  </section>
-</div>
+<!-- About Section -->
+<section class="about-section" id="about">
+  <div class="about-container">
+    <div class="about-text fade-in">
+      <h2>About Me</h2>
+      <p>
+        Welcome to my digital space! I'm a passionate developer who specializes in merging intuitive 
+        problem-solving with a strong grasp of Python. My journey in tech is driven by a constant 
+        desire to initiate innovative projects and deliver impactful contributions to dynamic teams.
+      </p>
+      <p>
+        I'm recognized for my knack in approaching intricate challenges with intuition and my mastery 
+        of Python programming. I'm dedicated to translating imaginative concepts into concrete outcomes 
+        while playing a pivotal role in collaborative environments.
+      </p>
+      <p>
+        For a comprehensive insight into my experiences and skills, explore my 
+        <a href="https://drive.google.com/file/d/1xwaVXqLdGgOv_hpcu3yQ5pHb3hyIli9I/view?usp=sharing" target="_blank">resume</a>!
+      </p>
+    </div>
+    
+    <div class="skills-grid fade-in">
+      <div class="skill-card">
+        <i class="fab fa-python"></i>
+        <h3>Python Expert</h3>
+        <p>Deep expertise in Python development and advanced programming concepts</p>
+      </div>
+      <div class="skill-card">
+        <i class="fas fa-lightbulb"></i>
+        <h3>Problem Solving</h3>
+        <p>Intuitive approach to complex challenges with creative solutions</p>
+      </div>
+      <div class="skill-card">
+        <i class="fas fa-rocket"></i>
+        <h3>Innovation</h3>
+        <p>Passionate about initiating and driving innovative projects</p>
+      </div>
+      <div class="skill-card">
+        <i class="fas fa-users"></i>
+        <h3>Team Player</h3>
+        <p>Effective collaboration and impactful contributions to dynamic teams</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div class="footer">
-  <a href="https://drive.google.com/file/d/1M7McvRvlh6YAG5joyEH0TmUaAgb90HIi/view?usp=sharing" target="_blank" title="Resume" class="fa fa-file footer-icons"></a>
-  <a href="mailto:gunjangunecha@yahoo.com" title="Mail" class="footer-icons fas fa-envelope"></a>
-  <a href="https://in.linkedin.com/in/gunjangunecha" target="_blank" title="Follow me on LinkedIn" class="fab fa-linkedin footer-icons"></a>
-  <a href="https://github.com/Gunjangunecha" target="_blank" title="Follow me on Github" class="fab fa-github footer-icons"></a>
-  <a href="https://twitter.com/gunechagunjan" target="_blank" title="Follow me on Twitter" class="fab fa-twitter footer-icons" style="position:relative;">
-  </a>
-  <a href="https://discord.com/oxanie"title="Add me on Discord, username: oxanie" class="fab fa-discord footer-icons"></a>
-  <a href="https://t.me/wyyen" title="Add me on Telegram, username: wyyen" class="fab fa-telegram footer-icons"></a>
-</div>
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="social-links">
+      <a href="https://drive.google.com/file/d/1M7McvRvlh6YAG5joyEH0TmUaAgb90HIi/view?usp=sharing" target="_blank" class="social-link" title="Resume">
+        <i class="fa fa-file"></i>
+      </a>
+      <a href="mailto:gunjangunecha@yahoo.com" class="social-link" title="Email">
+        <i class="fas fa-envelope"></i>
+      </a>
+      <a href="https://in.linkedin.com/in/gunjangunecha" target="_blank" class="social-link" title="LinkedIn">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="https://github.com/Gunjangunecha" target="_blank" class="social-link" title="GitHub">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="https://twitter.com/gunechagunjan" target="_blank" class="social-link" title="Twitter">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://discord.com/oxanie" class="social-link" title="Discord - oxanie">
+        <i class="fab fa-discord"></i>
+      </a>
+      <a href="https://t.me/wyyen" class="social-link" title="Telegram - wyyen">
+        <i class="fab fa-telegram"></i>
+      </a>
+    </div>
+    <p class="copyright">© 2026 Gunjan Gunecha. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Theme Toggle Functionality
+  const themeToggle = document.getElementById('themeToggle');
+  const body = document.body;
+  
+  // Check for saved theme preference or default to light theme
+  const currentTheme = localStorage.getItem('theme') || 'light';
+  if (currentTheme === 'dark') {
+    body.classList.add('dark-theme');
+  }
+  
+  themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-theme');
+    
+    // Save theme preference
+    const theme = body.classList.contains('dark-theme') ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+  });
+  
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Intersection Observer for fade-in animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.fade-in').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    observer.observe(el);
+  });
+</script>
 
 </body>
 </html>
-
